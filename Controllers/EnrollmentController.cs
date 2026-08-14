@@ -1,4 +1,5 @@
 using LMS___Mini_Version.DTOs;
+using LMS___Mini_Version.Features.Enrollments.Commands;
 using LMS___Mini_Version.Features.Enrollments.Queries;
 using LMS___Mini_Version.Mapping;
 using LMS___Mini_Version.Mediators;
@@ -130,14 +131,15 @@ namespace LMS___Mini_Version.Controllers
         [HttpPost("{id}/cancel")]
         public async Task<ActionResult> Cancel(int id)
         {
-            var result = await _cancelMediator.ExecuteAsync(id).ConfigureAwait(false);
+            //var result = await _cancelMediator.ExecuteAsync(id).ConfigureAwait(false);
+            await _mediator.Send(new CancelEnrollmentCommand(id));
 
-            if (!result.IsSuccess)
-            {
-                return BadRequest(new { error = result.Message });
-            }
+            //if (!result.IsSuccess)
+            //{
+            //    return BadRequest(new { error = result.Message });
+            //}
 
-            return Ok(new { message = result.Message });
+            return Ok();
         }
 
         /// <summary>
@@ -147,14 +149,16 @@ namespace LMS___Mini_Version.Controllers
         [HttpPost("{id}/transfer/{newTrackId}")]
         public async Task<ActionResult> Transfer(int id, int newTrackId)
         {
-            var result = await _transferMediator.ExecuteAsync(id, newTrackId).ConfigureAwait(false);
+            //var result = await _transferMediator.ExecuteAsync(id, newTrackId).ConfigureAwait(false);
 
-            if (!result.IsSuccess)
-            {
-                return BadRequest(new { error = result.Message });
-            }
+            //if (!result.IsSuccess)
+            //{
+            //    return BadRequest(new { error = result.Message });
+            //}
 
-            return Ok(new { message = result.Message });
+            await _mediator.Send(new TransferEnrollmentCommand(id, newTrackId));
+            
+            return Ok();
         }
     }
 }

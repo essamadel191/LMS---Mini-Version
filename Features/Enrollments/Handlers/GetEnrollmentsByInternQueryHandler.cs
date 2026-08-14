@@ -27,7 +27,7 @@ namespace LMS___Mini_Version.Features.Enrollments.Handlers
                     TrackName = enrollment.Track.Name,
                     EnrollmentDate = enrollment.EnrollmentDate,
                     Status = enrollment.Status
-            }).ToListAsync();
+            }).ToListAsync(cancellationToken);
         }
     }
 }

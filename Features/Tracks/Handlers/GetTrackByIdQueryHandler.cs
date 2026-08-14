@@ -6,7 +6,7 @@ using MediatR;
 
 namespace LMS___Mini_Version.Features.Tracks.Handlers
 {
-    public class GetTrackByIdQueryHandler : IRequestHandler<GetTrackByIdQuery, TrackDto>
+    public class GetTrackByIdQueryHandler : IRequestHandler<GetTrackByIdQuery, TrackDto?>
     {
         private readonly IGeneralRepository<Track> _trackRepository;
 
@@ -14,7 +14,7 @@ namespace LMS___Mini_Version.Features.Tracks.Handlers
         {
             _trackRepository = trackRepository;
         }
-        public async Task<TrackDto> Handle(GetTrackByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TrackDto?> Handle(GetTrackByIdQuery request, CancellationToken cancellationToken)
         {
             var track = await _trackRepository.GetByIdAsync(request.Id);
             if (track == null) { 

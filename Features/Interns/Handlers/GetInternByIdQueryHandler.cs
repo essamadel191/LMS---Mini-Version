@@ -22,8 +22,13 @@ namespace LMS___Mini_Version.Features.Interns.Handlers
             return new InternDto
             {
                 Id = intern.Id,
-
-            }
+                FullName = intern.FullName,
+                Email = intern.Email,
+                BirthYear = intern.BirthYear,
+                Status = intern.Status.ToString(),
+                TrackId = intern.TrackId,
+                TrackName = intern.Track.Name
+            };
         }
     }
 }
