@@ -1,8 +1,10 @@
 using LMS___Mini_Version.DTOs;
+using LMS___Mini_Version.Features.Enrollments.Queries;
 using LMS___Mini_Version.Mapping;
 using LMS___Mini_Version.Mediators;
 using LMS___Mini_Version.Services.Interfaces;
 using LMS___Mini_Version.ViewModels.Enrollment;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMS___Mini_Version.Controllers
@@ -48,19 +50,23 @@ namespace LMS___Mini_Version.Controllers
         private readonly EnrollInternMediator _enrollMediator;
         private readonly CancelEnrollmentMediator _cancelMediator;
         private readonly TransferEnrollmentMediator _transferMediator;
+        private readonly IMediator _mediator;
 
         // ⚠️ Constructor bloat — imagine this with 10+ business actions!
         public EnrollmentController(
             IEnrollmentService enrollmentService,
             EnrollInternMediator enrollMediator,
             CancelEnrollmentMediator cancelMediator,
-            TransferEnrollmentMediator transferMediator
+            TransferEnrollmentMediator transferMediator,
+
+            IMediator mediator
             )
         {
             _enrollmentService = enrollmentService;
             _enrollMediator = enrollMediator;
             _cancelMediator = cancelMediator;
             _transferMediator = transferMediator;
+            _mediator = mediator;
         }
 
         // ═══════════════════════════════════════════════════════
@@ -86,7 +92,8 @@ namespace LMS___Mini_Version.Controllers
         [HttpGet("intern/{internId}")]
         public async Task<ActionResult<IEnumerable<EnrollmentViewModel>>> GetByIntern(int internId)
         {
-            var dtos = await _enrollmentService.GetByInternAsync(internId).ConfigureAwait(false);
+            //var dtos = await _enrollmentService.GetByInternAsync(internId).ConfigureAwait(false);
+            var dtos = await _mediator.Send(new GetEnrollmentsByInternQuery(internId));
             var viewModels = dtos.Select(d => d.ToViewModel());
             return Ok(viewModels);
         }

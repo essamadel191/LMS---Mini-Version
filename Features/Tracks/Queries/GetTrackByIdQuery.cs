@@ -1,6 +1,7 @@
-﻿namespace LMS___Mini_Version.Features.Tracks.Queries
+﻿using LMS___Mini_Version.DTOs;
+using MediatR;
+
+namespace LMS___Mini_Version.Features.Tracks.Queries
 {
-    public class GetTrackByIdQuery
-    {
-    }
+    public record GetTrackByIdQuery(int Id) : IRequest<TrackDto?>;
 }

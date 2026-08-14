@@ -53,7 +53,7 @@ namespace LMS___Mini_Version.Features.Interns.Handlers
                         TrackId = intern.TrackId,
                         TrackName = intern.Track.Name
                     }
-                ).ToListAsync();
+                ).ToListAsync() ?? [];
         }
     }
 }

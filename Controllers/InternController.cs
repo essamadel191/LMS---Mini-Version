@@ -41,7 +41,8 @@ namespace LMS___Mini_Version.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<InternDetailViewModel>> GetById(int id)
         {
-            var dto = await _internService.GetByIdAsync(id).ConfigureAwait(false);
+            //var dto = await _internService.GetByIdAsync(id).ConfigureAwait(false);
+            var dto = await _mediator.Send(new GetInternByIdQuery(id)).ConfigureAwait(false);
             if (dto == null) return NotFound();
             return Ok(dto.ToDetailViewModel());
         }
