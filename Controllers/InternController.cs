@@ -21,12 +21,12 @@ namespace LMS___Mini_Version.Controllers
     {
         private readonly IMediator _mediator;
 
-        //private readonly IInternService _internService;
+        private readonly IInternService _internService;
 
-        public InternController(IMediator mediator)
+        public InternController(IMediator mediator, IInternService internService)
         {
             _mediator = mediator;
-            //_internService = internService;
+            _internService = internService;
         }
 
         [HttpGet]
